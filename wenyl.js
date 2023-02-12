@@ -3,7 +3,10 @@ import axios from 'axios'
 const api = {
     "joke2": "http://www.yidianzixun.com/home/q/news_list_for_channel?channel_id=13509555264&cstart=0&cend=10&infinite=true&refresh=1&__from__=wap&_spt=yz~eaod%3B9%3F%3A3%3F%3F%3F8%3C%3E%3A%3B%3A&appid=web_yidian&_=",
     "joke1":"https://www.mxnzp.com/api/jokes/list?page=1&app_id=rgihdrm0kslojqvm&app_secret=WnhrK251TWlUUThqaVFWbG5OeGQwdz09",
-    "zn": "https://api.lovelive.tools/api/SweetNothings/Serialization/Json"
+    "zn": "https://api.lovelive.tools/api/SweetNothings/Serialization/Json",
+    "djt":"https://cloud.qqshabi.cn/api/poison/api.php",
+    "wyyrp":"https://cloud.qqshabi.cn/api/comments/api.php?format=text",
+    "chp":"https://cloud.qqshabi.cn/api/rainbow/api.php"
 }
 const headers = {
     "X-Requested-With": "XMLHttpRequest",
@@ -54,12 +57,27 @@ export class example extends plugin {
                         var res = await get(api.zn)
                         var data = res ? res.returnObj[0] : null
                         break
+                    case '毒鸡汤':
+                        var res = await get(api.djt)
+                        var data = res ? res.data : null
+                        break                                   
+                    case '热评':
+                        var res = await get(api.wyyrp)
+                        var data = res ?res : null
+                        break      
+                    case '彩虹屁':
+                        var res = await get(api.chp)
+                        var data = res ? res.data : null
+                        break
                     default:
                         await this.reply(                        `不存在该接口
 接口列表如下：
         1.来点段子1
         2.来点段子2
-        3.来点渣男`)
+        3.来点渣男
+        4.来点热评
+        5.来点毒鸡汤
+        6.来点彩虹屁`)
                 }
                 if (data) await this.reply(data)
                 else await this.reply("♀...※〓'É")
